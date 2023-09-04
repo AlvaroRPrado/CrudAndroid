@@ -2,8 +2,17 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.CrudRoom" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="toolbarStyle">@style/ToolbarBarStyle</item>
+    </style>
+    <style name="ToolbarBarStyle" parent="Widget.AppCompat.Toolbar">
+        <item name="titleTextAppearance">@style/ToolbarBarStyle.Title</item>
     </style>
 
+    <style name="ToolbarBarStyle.Title" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
     <style name="Theme.CrudRoom" parent="Base.Theme.CrudRoom" />
 </resources>
