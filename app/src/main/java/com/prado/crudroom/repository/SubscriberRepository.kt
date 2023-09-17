@@ -1,7 +1,6 @@
 package com.prado.crudroom.repository
 
 import androidx.lifecycle.LiveData
-import com.prado.crudroom.data.db.dao.SubscriberDAO
 import com.prado.crudroom.data.db.entity.SubscriberEntity
 
 interface SubscriberRepository {
@@ -11,7 +10,7 @@ interface SubscriberRepository {
 
     suspend fun deleteSubscriber(id: Long)
 
-    suspend fun deleteAllSubscriber()
+    suspend fun deleteAllSubscribers()
 
-    suspend fun getAllSubscriber(): LiveData<List<SubscriberEntity>>
+    suspend fun getAllSubscribers(): LiveData<List<SubscriberEntity>>
 }

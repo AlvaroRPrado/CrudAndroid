@@ -4,13 +4,14 @@ import androidx.lifecycle.LiveData
 import com.prado.crudroom.data.db.dao.SubscriberDAO
 import com.prado.crudroom.data.db.entity.SubscriberEntity
 
-class DatabaseDataSource(private val subscriberDAO: SubscriberDAO): SubscriberRepository {
+class DatabaseDataSource(private val subscriberDAO: SubscriberDAO) : SubscriberRepository {
 
     override suspend fun insertSubscriber(name: String, email: String): Long {
-       val subscriber = SubscriberEntity(
-           name = name,
-           email = email
-       )
+        val subscriber = SubscriberEntity(
+            name = name,
+            email = email
+        )
+
         return subscriberDAO.insert(subscriber)
     }
 
@@ -20,19 +21,19 @@ class DatabaseDataSource(private val subscriberDAO: SubscriberDAO): SubscriberRe
             name = name,
             email = email
         )
-        return subscriberDAO.update(subscriber)
+
+        subscriberDAO.update(subscriber)
     }
 
     override suspend fun deleteSubscriber(id: Long) {
         subscriberDAO.delete(id)
     }
 
-    override suspend fun deleteAllSubscriber() {
+    override suspend fun deleteAllSubscribers() {
         subscriberDAO.deleteAll()
     }
 
-    override suspend fun getAllSubscriber(): LiveData<List<SubscriberEntity>> {
+    override suspend fun getAllSubscribers(): LiveData<List<SubscriberEntity>> {
         return subscriberDAO.getAll()
     }
-
 }
