@@ -3,7 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
-    app:startDestination="@id/subscriberFragment">
+    app:startDestination="@id/subscriberListFragment">
+
+    <fragment
+        android:id="@+id/subscriberListFragment"
+        android:name="com.prado.crudroom.ui.subscriberlist.SubscriberListFragment"
+        android:label="fragment_subscriber_list"
+        tools:layout="@layout/fragment_subscriber_list" />
 
     <fragment
         android:id="@+id/subscriberFragment"
