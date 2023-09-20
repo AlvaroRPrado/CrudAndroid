@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.prado.crudroom.R
 import com.prado.crudroom.data.db.AppDatabase
 import com.prado.crudroom.data.db.entity.SubscriberEntity
@@ -31,6 +32,7 @@ class SubscriberListFragment : Fragment(R.layout.fragment_subscriber_list) {
         binding = FragmentSubscriberListBinding.bind(view)
 
         observeViewModelEvents()
+        configureViewListeners()
 
     }
 
@@ -45,6 +47,11 @@ class SubscriberListFragment : Fragment(R.layout.fragment_subscriber_list) {
 
         }
 
+    }
+    private fun configureViewListeners() {
+        binding.fabAddSubscriber.setOnClickListener {
+            findNavController().navigate(R.id.subscriberFragment)
+        }
     }
 
 }
