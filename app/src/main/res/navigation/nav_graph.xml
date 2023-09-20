@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/subscriberListFragment"
         android:name="com.prado.crudroom.ui.subscriberlist.SubscriberListFragment"
-        android:label="fragment_subscriber_list"
+        android:label="@string/subscriberList_title"
         tools:layout="@layout/fragment_subscriber_list" />
 
     <fragment
