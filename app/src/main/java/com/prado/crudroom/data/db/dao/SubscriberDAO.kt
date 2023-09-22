@@ -1,6 +1,5 @@
 package com.prado.crudroom.data.db.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.prado.crudroom.data.db.entity.SubscriberEntity
 
@@ -21,5 +20,5 @@ interface SubscriberDAO {
     fun deleteAll()
 
     @Query("SELECT * FROM subscriber")
-    fun getAll(): LiveData<List<SubscriberEntity>>
+    fun getAll(): List<SubscriberEntity>
 }

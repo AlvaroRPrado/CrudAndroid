@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.prado.crudroom.data.db.AppDatabase
 import com.prado.crudroom.data.db.dao.SubscriberDAO
@@ -41,6 +42,7 @@ class SubscriberFragment : Fragment(R.layout.fragment_subscriber) {
 
         observeEvent()
         setListeners()
+
     }
 
     private fun observeEvent() {
@@ -49,6 +51,7 @@ class SubscriberFragment : Fragment(R.layout.fragment_subscriber) {
                 is SubscriberViewModel.SubscriberState.Inserted -> {
                     clearFields()
                     hideKeyboard()
+                    findNavController().popBackStack()
                 }
             }
         }
