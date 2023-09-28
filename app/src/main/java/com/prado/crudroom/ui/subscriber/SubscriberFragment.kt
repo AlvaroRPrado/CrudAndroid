@@ -1,4 +1,4 @@
-package com.prado.crudroom
+package com.prado.crudroom.ui.subscriber
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
@@ -11,13 +11,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
+import com.prado.crudroom.R
 import com.prado.crudroom.data.db.AppDatabase
 import com.prado.crudroom.data.db.dao.SubscriberDAO
 import com.prado.crudroom.databinding.FragmentSubscriberBinding
 import com.prado.crudroom.extension.hideKeyboard
 import com.prado.crudroom.repository.DatabaseDataSource
 import com.prado.crudroom.repository.SubscriberRepository
-import com.prado.crudroom.ui.subscriber.SubscriberViewModel
 
 class SubscriberFragment : Fragment(R.layout.fragment_subscriber) {
 
@@ -45,6 +45,8 @@ class SubscriberFragment : Fragment(R.layout.fragment_subscriber) {
         binding.buttonSubscriber.text = getString(R.string.subscriber_button_update)
         binding.inputName.setText(subscriber.name)
         binding.inputEmail.setText(subscriber.email)
+
+        binding.buttonDelete.visibility = view.visibility
         }
 
         observeEvent()
@@ -55,15 +57,12 @@ class SubscriberFragment : Fragment(R.layout.fragment_subscriber) {
     private fun observeEvent() {
         viewModel.subscriberStateEventData.observe(viewLifecycleOwner) { subscriberState ->
             when (subscriberState) {
-                is SubscriberViewModel.SubscriberState.Inserted -> {
+                is SubscriberViewModel.SubscriberState.Inserted,
+                is SubscriberViewModel.SubscriberState.Update,
+                is SubscriberViewModel.SubscriberState.Delete ->{
                     clearFields()
                     hideKeyboard()
                     requireView().requestFocus()
-                    findNavController().popBackStack()
-                }
-                is SubscriberViewModel.SubscriberState.Update -> {
-                    clearFields()
-                    hideKeyboard()
                     findNavController().popBackStack()
                 }
             }
@@ -92,6 +91,10 @@ class SubscriberFragment : Fragment(R.layout.fragment_subscriber) {
             val email = binding.inputEmail.text.toString()
 
             viewModel.addOrUpdateSubscriber(name, email, args.subscriber?.id ?: 0)
+        }
+        binding.buttonDelete.setOnClickListener {
+            viewModel.deleteSubscriber(args.subscriber?.id ?: 0)
+
         }
     }
 

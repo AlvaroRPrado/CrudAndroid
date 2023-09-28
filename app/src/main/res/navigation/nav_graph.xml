@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/subscriberFragment"
-        android:name="com.prado.crudroom.SubscriberFragment"
+        android:name="com.prado.crudroom.ui.subscriber.SubscriberFragment"
         android:label="@string/subscriber_title"
         tools:layout="@layout/fragment_subscriber" >
 
