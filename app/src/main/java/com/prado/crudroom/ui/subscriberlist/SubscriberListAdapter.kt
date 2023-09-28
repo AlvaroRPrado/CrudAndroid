@@ -11,6 +11,8 @@ class SubscriberListAdapter(
     val subscribers: List<SubscriberEntity>
 ):RecyclerView.Adapter<SubscriberListAdapter.SubscriberListViewHolder>(){
 
+    var onItemClick: ((entity: SubscriberEntity) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubscriberListViewHolder {
         val binding = SubscriberItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return SubscriberListViewHolder(binding)
@@ -32,6 +34,10 @@ class SubscriberListAdapter(
         fun bindView(subscribers: SubscriberEntity){
             textviewSubscriberName.text = subscribers.name
             textviewSubscriberEmail.text = subscribers.email
+
+            itemView.setOnClickListener {
+                onItemClick?.invoke(subscribers)
+            }
         }
     }
 }

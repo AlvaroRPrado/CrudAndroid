@@ -6,11 +6,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.prado.crudroom.R
 import com.prado.crudroom.data.db.AppDatabase
-import com.prado.crudroom.data.db.entity.SubscriberEntity
 import com.prado.crudroom.databinding.FragmentSubscriberListBinding
+import com.prado.crudroom.extension.navigateWithAnimations
 import com.prado.crudroom.repository.DatabaseDataSource
 import com.prado.crudroom.repository.SubscriberRepository
 
@@ -37,8 +38,16 @@ class SubscriberListFragment : Fragment(R.layout.fragment_subscriber_list) {
     }
 
     private fun observeViewModelEvents() {
+
         viewModel.allSubscribersEvent.observe(viewLifecycleOwner){allSubscibers->
-            val subscriberListAdapter = SubscriberListAdapter(allSubscibers)
+            val subscriberListAdapter = SubscriberListAdapter(allSubscibers).apply {
+                onItemClick = { subscriber ->
+                    val directions = SubscriberListFragmentDirections
+                        .actionSubscriberListFragmentToSubscriberFragment(subscriber)
+
+                    findNavController().navigateWithAnimations(directions)
+                }
+            }
 
             with(binding.recyclerSubscribers){
                 setHasFixedSize(true)
@@ -46,6 +55,11 @@ class SubscriberListFragment : Fragment(R.layout.fragment_subscriber_list) {
             }
 
         }
+
+
+
+
+
 
     }
 
@@ -55,7 +69,7 @@ class SubscriberListFragment : Fragment(R.layout.fragment_subscriber_list) {
     }
     private fun configureViewListeners() {
         binding.fabAddSubscriber.setOnClickListener {
-            findNavController().navigate(R.id.subscriberFragment)
+            findNavController().navigate(R.id.action_subscriberListFragment_to_subscriberFragment)
         }
     }
 

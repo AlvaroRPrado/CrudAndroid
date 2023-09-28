@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CrudRoom</string>
 
-git
+
     <!-- SubscriberFragment -->
     <string name="subscriber_name_hint">Subscriber\'s name</string>
     <string name="subscriber_email_hint">E-mail</string>
@@ -19,4 +19,6 @@ git
     <!-- SubscriberList -->
     <string name="subscriberList_title">Subscriber List</string>
     <string name="subscriberList_menu_delete">Delete all</string>
+
+    <string name="nav_subscriber">subscriber</string>
 </resources>

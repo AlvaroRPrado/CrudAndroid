@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
@@ -9,12 +10,23 @@
         android:id="@+id/subscriberListFragment"
         android:name="com.prado.crudroom.ui.subscriberlist.SubscriberListFragment"
         android:label="@string/subscriberList_title"
-        tools:layout="@layout/fragment_subscriber_list" />
+        tools:layout="@layout/fragment_subscriber_list" >
+        <action
+            android:id="@+id/action_subscriberListFragment_to_subscriberFragment"
+            app:destination="@id/subscriberFragment" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/subscriberFragment"
         android:name="com.prado.crudroom.SubscriberFragment"
         android:label="@string/subscriber_title"
-        tools:layout="@layout/fragment_subscriber" />
+        tools:layout="@layout/fragment_subscriber" >
 
+        <argument
+            android:name="subscriber"
+            app:argType="com.prado.crudroom.data.db.entity.SubscriberEntity"
+            android:defaultValue="@null"
+            app:nullable="true" />
+    </fragment>
 </navigation>

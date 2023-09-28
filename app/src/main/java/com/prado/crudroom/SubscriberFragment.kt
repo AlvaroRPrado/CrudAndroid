@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.prado.crudroom.data.db.AppDatabase
 import com.prado.crudroom.data.db.dao.SubscriberDAO
@@ -33,12 +34,18 @@ class SubscriberFragment : Fragment(R.layout.fragment_subscriber) {
             }
         }
     }
-
+    private val args: SubscriberFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         binding = FragmentSubscriberBinding.bind(view)
+
+        args.subscriber?.let {subscriber ->
+        binding.buttonSubscriber.text = getString(R.string.subscriber_button_update)
+        binding.inputName.setText(subscriber.name)
+        binding.inputEmail.setText(subscriber.email)
+        }
 
         observeEvent()
         setListeners()
@@ -49,6 +56,12 @@ class SubscriberFragment : Fragment(R.layout.fragment_subscriber) {
         viewModel.subscriberStateEventData.observe(viewLifecycleOwner) { subscriberState ->
             when (subscriberState) {
                 is SubscriberViewModel.SubscriberState.Inserted -> {
+                    clearFields()
+                    hideKeyboard()
+                    requireView().requestFocus()
+                    findNavController().popBackStack()
+                }
+                is SubscriberViewModel.SubscriberState.Update -> {
                     clearFields()
                     hideKeyboard()
                     findNavController().popBackStack()
@@ -78,7 +91,7 @@ class SubscriberFragment : Fragment(R.layout.fragment_subscriber) {
             val name = binding.inputName.text.toString()
             val email = binding.inputEmail.text.toString()
 
-            viewModel.addSubscriber(name, email)
+            viewModel.addOrUpdateSubscriber(name, email, args.subscriber?.id ?: 0)
         }
     }
 
